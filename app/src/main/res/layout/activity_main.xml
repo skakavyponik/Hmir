@@ -18,18 +18,39 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
 
-        <Spinner
+        <!--android:entries="@array/country_arrays"-->
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_vertical_margin"
+            android:layout_weight="90"
+            android:id="@+id/SensorList" />
+
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="10"
-            android:entries="@array/country_arrays"
-            android:id="@+id/spinner2" />
+            android:weightSum="100">
 
-                <ListView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/activity_vertical_margin"
-                    android:layout_weight="90"
-                    android:entries="@array/country_arrays"
-                    android:id="@+id/SensorList" />
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="15" />
+
+            <Button
+                android:text="Start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/startButton"
+                android:background="@color/colorPrimary"
+                android:layout_weight="70" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="15" />
+        </LinearLayout>
+
     </LinearLayout>
 </RelativeLayout>
