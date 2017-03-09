@@ -1,14 +1,14 @@
 package com.example.jurajb.hmir;
 
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -39,5 +39,13 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(),sensorListView.getItemAtPosition(position).toString(),Toast.LENGTH_SHORT).show();
             }
         });*/
+        Button startButton = (Button) findViewById(R.id.startButton);
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getApplicationContext(), CameraActivity.class);
+                startActivity(myIntent);
+            }
+        });
     }
 }
