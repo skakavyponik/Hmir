@@ -7,12 +7,16 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import java.io.IOException;
+import java.util.List;
 
 
 public class CameraView extends SurfaceView implements SurfaceHolder.Callback{
 
     private SurfaceHolder mHolder;
     private Camera mCamera;
+    private List<Camera.Size> mSupportedPreviewSizes;
+    private Camera.Size mPreviewSize;
+    private static final String TAG = "CameraView";
 
     public CameraView(Context context, Camera camera){
         super(context);
@@ -23,6 +27,12 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback{
         mHolder = getHolder();
         mHolder.addCallback(this);
         mHolder.setType(SurfaceHolder.SURFACE_TYPE_NORMAL);
+
+        // supported preview sizes
+        mSupportedPreviewSizes = mCamera.getParameters().getSupportedPreviewSizes();
+        for(Camera.Size str: mSupportedPreviewSizes)
+            Log.e(TAG, str.width + "/" + str.height);
+
     }
 
     @Override
@@ -52,9 +62,50 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback{
         try{
             mCamera.setPreviewDisplay(mHolder);
             mCamera.startPreview();
+
+            Camera.Parameters parameters = mCamera.getParameters();
+            parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+            mCamera.setParameters(parameters);
+
         } catch (IOException e) {
             Log.d("ERROR", "Camera error on surfaceChanged " + e.getMessage());
         }
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        final int width = resolveSize(getSuggestedMinimumWidth(), widthMeasureSpec);
+        final int height = resolveSize(getSuggestedMinimumHeight(), heightMeasureSpec);
+
+        if (mSupportedPreviewSizes != null) {
+            mPreviewSize = getOptimalPreviewSize(mSupportedPreviewSizes, width, height);
+        }
+
+        float ratio;
+        if(mPreviewSize.height >= mPreviewSize.width)
+            ratio = (float) mPreviewSize.height / (float) mPreviewSize.width;
+        else
+            ratio = (float) mPreviewSize.width / (float) mPreviewSize.height;
+
+        setMeasuredDimension(width, (int) (width * ratio));
+    }
+
+    private Camera.Size getOptimalPreviewSize(List<Camera.Size> sizes, int w, int h) {
+
+        if (sizes==null) return null;
+
+        Camera.Size optimalSize = null;
+        double ratio = (double)h/w;
+        double minDiff = Double.MAX_VALUE;
+        double newDiff;
+        for (Camera.Size size : sizes) {
+            newDiff = Math.abs((double)size.width/size.height - ratio);
+            if (newDiff < minDiff) {
+                optimalSize = size;
+                minDiff = newDiff;
+            }
+        }
+        return optimalSize;
     }
 
     @Override
@@ -63,5 +114,10 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback{
         //if you are unsing with more screens, please move this code your activity
         mCamera.stopPreview();
         mCamera.release();
+    }
+    private List<Sensor> sensorList;
+
+    public void registerSensor(Sensor s){
+        sensorList.add(s);
     }
 }

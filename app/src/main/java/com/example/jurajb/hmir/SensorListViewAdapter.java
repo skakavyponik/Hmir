@@ -22,12 +22,12 @@ import java.util.List;
 
 public class SensorListViewAdapter extends ArrayAdapter<Sensor> {
 
-    private List<Sensor> dataSet;
+    //private List<Sensor> dataSet;
     private Context mContext;
 
     public SensorListViewAdapter(List<Sensor> data, Context context) {
         super(context, R.layout.sensor_list_view_item, data);
-        this.dataSet = data;
+        //this.dataSet = data;
         this.mContext = context;
     }
 
@@ -62,7 +62,4 @@ public class SensorListViewAdapter extends ArrayAdapter<Sensor> {
 
         return v;
     }
-    /*public String getSensorName(){
-        return
-    }*/
 }

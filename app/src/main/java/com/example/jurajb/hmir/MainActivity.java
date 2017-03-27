@@ -33,16 +33,13 @@ public class MainActivity extends AppCompatActivity {
         //set all sensors to listView
         sensorListView.setAdapter(sensorAdapter);
 
-        /*sensorListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                Toast.makeText(getBaseContext(),sensorListView.getItemAtPosition(position).toString(),Toast.LENGTH_SHORT).show();
-            }
-        });*/
         Button startButton = (Button) findViewById(R.id.startButton);
+
+        CameraActivity camera;
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent myIntent = new Intent(getApplicationContext(), CameraActivity.class);
                 startActivity(myIntent);
             }
