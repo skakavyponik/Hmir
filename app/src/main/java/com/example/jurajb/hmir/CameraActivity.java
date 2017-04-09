@@ -55,12 +55,13 @@ public class CameraActivity extends AppCompatActivity {
 
         s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             private Sensor currentSensor = null;
+            private SensorManager manager = (SensorManager) getSystemService(SENSOR_SERVICE);
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 if(currentSensor != null)
-                    currentSensor.stop();
+                    currentSensor.stop(manager);
                 currentSensor = (Sensor)parentView.getSelectedItem();
-                currentSensor.start((LinearLayout)findViewById(R.id.rrr));
+                currentSensor.start(manager,(LinearLayout)findViewById(R.id.rrr));
             }
 
             @Override
@@ -68,5 +69,4 @@ public class CameraActivity extends AppCompatActivity {
             }
         });
     }
-
 }
