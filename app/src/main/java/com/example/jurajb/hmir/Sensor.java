@@ -1,10 +1,8 @@
 package com.example.jurajb.hmir;
 
-import android.content.Context;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.support.annotation.Nullable;
 import android.widget.LinearLayout;
 
 import static android.content.Context.SENSOR_SERVICE;
@@ -14,19 +12,21 @@ import static android.content.Context.SENSOR_SERVICE;
  */
 
 public abstract class Sensor implements SensorEventListener {
-protected LinearLayout layout;
+    protected LinearLayout layout;
+    protected SensorManager manager;
 
     protected android.hardware.Sensor sensor;
 
-    public Sensor(android.hardware.Sensor sensor){
+    public Sensor(android.hardware.Sensor sensor,SensorManager manager){
         this.sensor = sensor;
+        this.manager = manager;
     }
 
     public abstract void update(SensorEvent event);
 
     public abstract void getView(LinearLayout l);
 
-    public void start(SensorManager manager,LinearLayout l){
+    public void start(LinearLayout l){
         getView(l);
         manager.registerListener(this,sensor,SensorManager.SENSOR_DELAY_NORMAL);
     }

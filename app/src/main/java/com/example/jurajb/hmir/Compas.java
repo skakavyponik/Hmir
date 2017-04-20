@@ -19,10 +19,8 @@ import static android.content.Context.SENSOR_SERVICE;
  */
 
 public class Compas extends Sensor {
-    Context context;
-    Compas(Context context,android.hardware.Sensor sensor){
-        super(sensor);
-        this.context = context;
+    Compas(android.hardware.Sensor sensor,SensorManager manager){
+        super(sensor,manager);
     }
 
     public void update(SensorEvent event){
@@ -30,11 +28,6 @@ public class Compas extends Sensor {
     }
 
     public void getView(LinearLayout l){
-        Toast.makeText(context,"start" ,Toast.LENGTH_SHORT).show();
+       // Toast.makeText(context,"start" ,Toast.LENGTH_SHORT).show();
     }
-
-    public void stop(){
-        Toast.makeText(context,"stop" ,Toast.LENGTH_SHORT).show();
-    }
-
 }

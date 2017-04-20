@@ -44,10 +44,14 @@ public class CameraActivity extends AppCompatActivity {
         /*
         * TUNA PRIDAT VSETKY senzory CO TREBA
         * */
+        sensors.add(new Compas(mSensorManager.getDefaultSensor(android.hardware.Sensor.TYPE_ACCELEROMETER),mSensorManager));
+        sensors.add(new Compas(mSensorManager.getDefaultSensor(android.hardware.Sensor.TYPE_ACCELEROMETER),mSensorManager));
+        sensors.add(new Compas(mSensorManager.getDefaultSensor(android.hardware.Sensor.TYPE_ACCELEROMETER),mSensorManager));
+        sensors.add(new Compas(mSensorManager.getDefaultSensor(android.hardware.Sensor.TYPE_ACCELEROMETER),mSensorManager));
+
+        /*sensors.add(new Compas(getApplicationContext(),mSensorManager.getDefaultSensor(android.hardware.Sensor.TYPE_ACCELEROMETER)));
         sensors.add(new Compas(getApplicationContext(),mSensorManager.getDefaultSensor(android.hardware.Sensor.TYPE_ACCELEROMETER)));
-        sensors.add(new Compas(getApplicationContext(),mSensorManager.getDefaultSensor(android.hardware.Sensor.TYPE_ACCELEROMETER)));
-        sensors.add(new Compas(getApplicationContext(),mSensorManager.getDefaultSensor(android.hardware.Sensor.TYPE_ACCELEROMETER)));
-        sensors.add(new Compas(getApplicationContext(),mSensorManager.getDefaultSensor(android.hardware.Sensor.TYPE_ACCELEROMETER)));
+        sensors.add(new Compas(getApplicationContext(),mSensorManager.getDefaultSensor(android.hardware.Sensor.TYPE_ACCELEROMETER)));*/
 
         //set spinner adapter
         Spinner s =(Spinner)findViewById(R.id.spinner);
@@ -61,7 +65,7 @@ public class CameraActivity extends AppCompatActivity {
                 if(currentSensor != null)
                     currentSensor.stop(manager);
                 currentSensor = (Sensor)parentView.getSelectedItem();
-                currentSensor.start(manager,(LinearLayout)findViewById(R.id.rrr));
+                currentSensor.start((LinearLayout)findViewById(R.id.rrr));
             }
 
             @Override
